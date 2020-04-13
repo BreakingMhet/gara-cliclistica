@@ -18,10 +18,22 @@
 		$connessione = mysql_connect("localhost", "websinisi", "");
     	mysql_selectdb("my_websinisi");  */			 
 ?>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="login.php">Area Riservata</a>
+      </li>
+      </ul>
+    </div>
+  </nav>
 
     <h1 class="title">REGISTRAZIONE CICLISTA</h1>  
     <div class="block-shadow">
-        <form>
+        <form action="completaRegistrazione.php" method="post">
             <div class="form-group">
               <label for="nome">Nome</label>
               <input type="text" class="form-control" id="nome" name="nome">
@@ -68,14 +80,25 @@
                   ?>                 
                 </select>
                 </div>
-              </div>            
+              </div>
+              
+               <!-- Image -->
+               <div class="row space-top">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="image">
+                  <label class="custom-file-label" for="image">Carica immagine (dim.50x50) </label>
+                </div>
+              </div>
             </div>
 
             <div class="space-top">
-              <button type="submit" class="btn btn-info">Invia</button>
-              <button class="btn btn-secondary" id="indietro">Indietro</button>
+              <input type="submit" class="btn btn-info" value="Invia" name="invia">
             </div>
           </form>
+
+          <div class="space-top">
+              <button class="btn btn-secondary" id="indietro" name="indietro">Indietro</button>
+          </div>
     </div>
 
     <!--Footer-->
@@ -88,8 +111,7 @@
   
     <script>
       $("#indietro").click(function() {
-        window.open("index.html");
-        window.close();
+        window.location.replace("index.html");
       });
     </script>
   </body>

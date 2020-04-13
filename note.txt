@@ -1,0 +1,4 @@
+fare area riservata:
+    registrazione ciclista
+    registrazione tempo
+    inserimento nuova tappa
