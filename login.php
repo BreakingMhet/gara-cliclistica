@@ -14,9 +14,8 @@
 
 <body class="body">
 <?php
-/*
-		$connessione = mysql_connect("localhost", "websinisi", "");
-    	mysql_selectdb("my_websinisi");  */			 
+	session_start();
+	$_SESSION = array();	
 ?>
   <nav class="navbar navbar-expand-lg navbar-dark">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +29,6 @@
       </ul>
     </div>
   </nav>
-
     <h1 class="title">LOGIN</h1>  
     <div class="block-shadow">
         <form action="completaLogin.php" method="post">
@@ -40,7 +38,7 @@
             </div>
             <div class="form-group">
               <label for="cognome">Password</label>
-              <input type="password" class="form-control" id="cognome" name="cognome">
+              <input type="password" class="form-control" id="password" name="password">
             </div>
 
             <div class="space-top">
@@ -62,7 +60,7 @@
 
     <script>
       $("#indietro").click(function() {
-        window.location.replace("index.html");
+        window.location.replace("index.php");
       });
     </script>
   </body>

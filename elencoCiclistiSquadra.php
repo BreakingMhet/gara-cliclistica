@@ -10,45 +10,58 @@
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:400,900|Open+Sans&display=swap" rel="stylesheet">
 </head>
+
+<?php
+	session_start();
+	$connessione = mysql_connect("localhost", "websinisi", "");
+    mysql_select_db("my_websinisi");
+?>
 <body class="body">
-  
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-       <li class="nav-item">
-        <a class="nav-link" href="login.php">Area Riservata</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+            <?php
+            	if($_SESSION['stato'] == "admin")
+                	echo "<a class='nav-link' href='areaRis.php'>Area Riservata</a>";
+                else
+                	echo "<a class='nav-link' href='login.php'>Area Riservata</a>";
+            ?>
+            </li>
+        </ul>
+        </div>
+    </nav>
 
     <h1 class="title">ELENCO CICLISTI DI UNA SQUADRA</h1>
     <div class="block-shadow">
-        <form action=""></form>
-        <div class="row space-top">
+        <form action="completaElencoCiclistiSquadra.php" method="post">
+        	<div class="row space-top">
             <div class="col-lg-6">
                 <label for="squadra">Seleziona Squadra</label>
             </div>
             <div class="col-lg-6">
                 <select name="squadra" id="squadra" class="btn btn-info select-btn">
                   <?php
-                    /*
                     $query = "select * from squadra;";
                     $result = mysql_query($query);
                     while($row =mysql_fetch_array($result))
-                      {
-                          echo "<option value='". $row['id']. "'>". $row['nome']. "</option>";
-                      } */
+                    {
+                         echo "<option value='". $row['id']. "'>". $row['nome']. "</option>";
+                    } 
                   ?>                 
-                </select>
+                </select>  
             </div>
-        </div>
+          </div>
+          <div class="space-top">
+          	<input type="submit" class="btn btn-info" value="Visualizza">
+          </div>
+        </form>
         <div class="space-top">
-              <button class="btn btn-secondary" id="indietro">Indietro</button>
-        </div>
+                <button class="btn btn-secondary" id="indietro">Indietro</button>
+         </div>
     </div>
 
     <!--Footer-->
@@ -61,7 +74,7 @@
   
     <script>
       $("#indietro").click(function() {
-        window.location.href = "index.html";
+        window.location.href = "index.php";
       });
     </script>
 </body>

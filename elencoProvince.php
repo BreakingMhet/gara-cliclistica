@@ -3,18 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica</title>
+    <title>Elenco Province</title>
     <link rel="stylesheet" href="style.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:400,900|Open+Sans&display=swap" rel="stylesheet">
 </head>
-
 <body class="body">
-<?php
+  <?php
 	session_start();
-?>
+  	$connessione = mysql_connect("localhost", "websinisi", "");
+    mysql_select_db("my_websinisi");
+    
+    $query = "select sigla, count(idProvincia) from ciclista, provincia where provincia.id = ciclista.idProvincia group by provincia.id order by sigla;";
+    $result = mysql_query($query);
+  ?>
       <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -33,13 +37,33 @@
         </div>
     </nav>
 
-<div>
-    <h1 class="title">Classifica</h1>
-</div>
-    
+    <h1 class="title">ELENCO PROVINCE DI APPARTENENZA DEI CICLISTI</h1>
     <div class="block-shadow">
-
-
+    	<div class="container">
+        	<table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Provincia</th>
+                  <th scope="col">N. Ciclisti</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+                  while($row = mysql_fetch_array($result))
+                  {            
+						echo "<tr>";
+                        echo "<td>";
+                        echo $row['sigla'];
+                        echo "</td>";
+                        echo "<td>";
+                        echo $row['count(idProvincia)'];
+                        echo "</td>";
+                        echo "</tr>";
+                  }
+              ?>
+              </tbody>
+          </table>
+    	</div>
         <div class="space-top">
               <button class="btn btn-secondary" id="indietro">Indietro</button>
         </div>

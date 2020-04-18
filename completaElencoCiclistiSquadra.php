@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica</title>
+    <title>Elenco ciclisti squadra</title>
     <link rel="stylesheet" href="style.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:400,900|Open+Sans&display=swap" rel="stylesheet">
 </head>
-
 <body class="body">
-<?php
+  <?php
 	session_start();
-?>
-      <nav class="navbar navbar-expand-lg navbar-dark">
+  	$connessione = mysql_connect("localhost", "websinisi", "");
+    mysql_select_db("my_websinisi");
+    
+    $idSquadra = $_POST['squadra'];
+    //ottenere il nome della squadra
+    $querySqd = "select nome from squadra where id = $idSquadra;";
+    $resultSqd = mysql_query($querySqd);
+    $nomeSqd = mysql_fetch_array($resultSqd);
+    $nomeSqd = $nomeSqd['nome'];
+    
+    $query = "select * from ciclista where idSquadra = $idSquadra order by cognome, nome;";
+    $result = mysql_query($query);
+  ?>
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,14 +43,39 @@
         </ul>
         </div>
     </nav>
-
-<div>
-    <h1 class="title">Classifica</h1>
-</div>
-    
+	
+    <?php
+    	echo "<h1 class='title'>CICLISTI $nomeSqd</h1>";
+    ?>
     <div class="block-shadow">
-
-
+    	<div class="container">
+          <?php
+              while($row = mysql_fetch_array($result))
+              {
+              	//query provincia
+                $query = "select sigla from provincia where id=". $row['idProvincia']. ";";
+                $resProv = mysql_query($query);
+                $prov = mysql_fetch_array($resProv);
+                
+                //query squadra
+                $query = "select nome from squadra where id=". $row['idSquadra']. ";";
+                $resSqd = mysql_query($query);
+                $team = mysql_fetch_array($resSqd);
+                
+			 	echo "<div class='row rider-box'>";
+                echo "<div class='col-lg-6'>";
+                echo "<img src='" . $row['immagine']. "'>";
+                echo "</div>";
+                echo "<div class='col-lg-6'>";
+                echo "<p>Nome: ". $row['nome']. "</p>";
+                echo "<p>Cognome: ". $row['cognome']. "</p>";
+                echo "<p>Provincia: ". $prov['sigla']. "</p>";
+                echo "<p>Squadra: ". $team['nome']. "</p>";
+                echo "</div>";
+                echo "</div>";
+              }
+          ?>
+    	</div>
         <div class="space-top">
               <button class="btn btn-secondary" id="indietro">Indietro</button>
         </div>
@@ -55,7 +91,7 @@
   
     <script>
       $("#indietro").click(function() {
-        window.location.href = "index.php";
+        window.location.href = "elencoCiclistiSquadra.php";
       });
     </script>
 </body>

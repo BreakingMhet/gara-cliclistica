@@ -13,3 +13,11 @@ $("#elencoCiclistiSquadra").click(function(){
 $("#classifica").click(function(){
     window.location.href = "classifica.php";
 });
+
+$("#tappe").click(function(){
+	window.location.href = "elencoTappe.php";
+});
+
+$("#elencoProvince").click(function(){
+	window.location.href = "elencoProvince.php";
+});

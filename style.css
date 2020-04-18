@@ -38,6 +38,11 @@ Colori:
     text-align: center;
 }
 
+.rider-box {
+	padding: 2%;
+    border: solid 2px #204051;
+}
+
 .p-menu {
     margin-top: auto;
     margin-bottom: auto;

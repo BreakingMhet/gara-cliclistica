@@ -3,43 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classifica</title>
+    <title>Elenco ciclisti in ordine alfabetico</title>
     <link rel="stylesheet" href="style.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:400,900|Open+Sans&display=swap" rel="stylesheet">
 </head>
-
 <body class="body">
-<?php
-	session_start();
-?>
-      <nav class="navbar navbar-expand-lg navbar-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item">
-            <?php
-            	if($_SESSION['stato'] == "admin")
-                	echo "<a class='nav-link' href='areaRis.php'>Area Riservata</a>";
-                else
-                	echo "<a class='nav-link' href='login.php'>Area Riservata</a>";
-            ?>
-            </li>
-        </ul>
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="login.php">Area Riservata</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-<div>
-    <h1 class="title">Classifica</h1>
-</div>
-    
+    <h1 class="title">ELENCO CICLISTI</h1>
     <div class="block-shadow">
-
-
+    	<div id="elenco" class="container">
+        	<div class="row">
+              <div class="col-lg-3">
+              	<img src="images/Square_200x200.png">
+              </div>
+              <div class="col">
+              
+              </div>
+        	</div>
+        </div>
+       
         <div class="space-top">
               <button class="btn btn-secondary" id="indietro">Indietro</button>
         </div>
@@ -55,7 +52,7 @@
   
     <script>
       $("#indietro").click(function() {
-        window.location.href = "index.php";
+        window.location.href = "index.html";
       });
     </script>
 </body>

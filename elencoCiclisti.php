@@ -11,24 +11,67 @@
     <link href="https://fonts.googleapis.com/css?family=Merriweather|Montserrat:400,900|Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body class="body">
-  
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-     <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="login.php">Area Riservata</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <?php
+	session_start();
+  	$connessione = mysql_connect("localhost", "websinisi", "");
+    mysql_select_db("my_websinisi");
+    
+    $query = "select * from ciclista order by cognome, nome;";
+    $result = mysql_query($query);
+  ?>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+            <?php
+            	if($_SESSION['stato'] == "admin")
+                	echo "<a class='nav-link' href='areaRis.php'>Area Riservata</a>";
+                else
+                	echo "<a class='nav-link' href='login.php'>Area Riservata</a>";
+            ?>
+            </li>
+        </ul>
+        </div>
+    </nav>
 
     <h1 class="title">ELENCO CICLISTI</h1>
     <div class="block-shadow">
-
-
+    	<div class="container">
+          <?php
+              while($row = mysql_fetch_array($result))
+              {
+              	$idCiclista = $row['id'];
+              	//query provincia
+                $query = "select sigla from provincia where id=". $row['idProvincia']. ";";
+                $resProv = mysql_query($query);
+                $prov = mysql_fetch_array($resProv);
+                
+                //query squadra
+                $query = "select nome from squadra where id=". $row['idSquadra']. ";";
+                $resSqd = mysql_query($query);
+                $team = mysql_fetch_array($resSqd);
+                
+			 	echo "<div class='row rider-box'>";
+                echo "<div class='col-lg-6'>";
+                echo "<img src='" . $row['immagine']. "'>";
+                echo "</div>";
+                echo "<div class='col-lg-6'>";
+                echo "<p>Nome: ". $row['nome']. "</p>";
+                echo "<p>Cognome: ". $row['cognome']. "</p>";
+                echo "<p>Provincia: ". $prov['sigla']. "</p>";
+                echo "<p>Squadra: ". $team['nome']. "</p>";
+                if($_SESSION['stato'] == "admin")
+                {
+                	echo "<a href='registraTempo.php?id=$idCiclista' id='$idCiclista' class='stretched-link'>Registra tempo</a>";
+                }
+                echo "</div>";
+                echo "</div>";
+              }
+          ?>
+    	</div>
         <div class="space-top">
               <button class="btn btn-secondary" id="indietro">Indietro</button>
         </div>
@@ -44,7 +87,7 @@
   
     <script>
       $("#indietro").click(function() {
-        window.location.href = "index.html";
+        window.location.href = "index.php";
       });
     </script>
 </body>
